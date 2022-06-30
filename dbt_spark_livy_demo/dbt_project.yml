@@ -14,11 +14,11 @@
 #  * limitations under the License.
 #  */
 
-name: 'dbt_spark_demo'
+name: 'dbt_spark_livy_demo'
 version: '1.1.0'
 config-version: 2
 
-profile: 'dbt_spark_demo'
+profile: 'dbt_spark_livy_demo'
 
 model-paths: ["models"]
 analysis-paths: ["analyses"]
@@ -34,12 +34,12 @@ clean-targets:
 
 
 seeds:
-  dbt_spark_demo:
+  dbt_spark_livy_demo:
     reference:
       +schema: reference
 
 models:
-  dbt_spark_demo:
+  dbt_spark_livy_demo:
     +materialized: view
     staging:
       covid:

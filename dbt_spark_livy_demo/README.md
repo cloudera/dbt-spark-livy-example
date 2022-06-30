@@ -9,7 +9,7 @@ Some 'reference' tables are included to demonstrate using dbt seeds
 ## Sources
 ### covid_raw
 Raw data is loaded into tables using impyla to demonstrate using dbt sources.
-- dbt_demo_raw_covid
+- dbt_spark_livy_demo_raw_covid
   - raw_covid__cases
   - raw_covid__vaccines
 

@@ -18,7 +18,7 @@ version: 2
 
 sources:
   - name: raw_covid
-    schema: dbt_spark_demo
+    schema: dbt_spark_livy_demo
     tables:
       - name: raw_covid__vaccines
       - name: raw_covid__cases

@@ -1,7 +1,7 @@
 # dbt-spark-livy-example
 This repo provides an example project for the [dbt-spark-livy](https://github.com/cloudera/dbt-spark-livy) adapter for [dbt](https://www.getdbt.com/).
 
-## dbt_spark_demo
+## dbt_spark_livy_demo
 This directory is a [dbt project](https://docs.getdbt.com/docs/building-a-dbt-project/projects).
 
 ## util
@@ -32,7 +32,7 @@ Create a dbt profile in `~/.dbt/profiles.yml`
 For a Cloudera Data Platform cluster (CDW or DataHub), it should look like this:
 
 ```
-dbt_spark_demo:
+dbt_spark_livy_demo:
   outputs:
     dev:
       host: <livy host name>
