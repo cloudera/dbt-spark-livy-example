@@ -1,4 +1,4 @@
-# dbt-spark-example
+# dbt-spark-livy-example
 This repo provides an example project for the [dbt-spark-livy](https://github.com/cloudera/dbt-spark-livy) adapter for [dbt](https://www.getdbt.com/).
 
 ## dbt_spark_demo
@@ -17,7 +17,7 @@ git
 ## Install
 Start by cloning this repo
 
-`git clone https://github.com/TapasSenapati/dbt-spark-example.git`
+`git clone https://github.com/cloudera/dbt-spark-livy-example.git`
 
 Next install the requirements
 
@@ -35,13 +35,13 @@ For a Cloudera Data Platform cluster (CDW or DataHub), it should look like this:
 dbt_spark_demo:
   outputs:
     dev:
-      host: https://dbt-spark-gateway.ciadev.cna2-sx9y.cloudera.site/dbt-spark/cdp-proxy-api/livy_for_spark3
+      host: <livy host name>
       method: livy
-      schema: testdbt
+      schema: <db name>
       threads: 1
       type: spark_livy
-      password: Password123!
-      user: srv_cia_test_user
+      password: <password>
+      user: <user>
   target: dev
 
 ```
@@ -49,33 +49,13 @@ dbt_spark_demo:
 Test the profile  with `dbt debug`
 
 ## Generate fake raw data
-To generate fake data, we must first add our Impala details to `util/data_gen/write_data.py`
+To generate fake data, move to the `util/data_gen` folder
 
-Modify the following section to reflect your environment:
+Run command `python generate_data.py --days 2 --start-date 2022-01-01` to generate the first set of fake data
 
-```
-impala_conf = {
-    'host': '',
-    'port': '',
-    'user': '',
-    'password': '!',
-    'auth_mechanism': 'ldap',
-    'use_ssl': True,
-    'use_http_transport': True,
-    'http_path': ''
-}
-```
+This generates 2 days of fake data for the dates 01/01/2022 and 02/01/2022 in util/data_gen/data/raw_covid__cases.csv and util/data_gen/data/raw_covid__vaccines.csv.
 
-Next, move to the `util/data_gen` directory
-
-`cd util/data_gen`
-
-Run the `start.sh` helper to generate the first set of fake data
-
-`./start.sh 1`
-
-This generates 2 days of fake data for the dates 01/01/2022 and 02/01/2022 and writes it to Impala.
-It will create a database `dbt_demo_raw_covid` with 2 tables.
+Copy these two files to the seeds folder inside `dbt_spark_livy_demo` dbt project directory.
 
 ## Using dbt
 With our fake data loaded, we can start using dbt.
@@ -84,7 +64,7 @@ With our fake data loaded, we can start using dbt.
 First, run the [Seeds](https://docs.getdbt.com/docs/building-a-dbt-project/seeds) to load some reference data.
 Two Seeds are included in the demo, `populations` and `country_codes`.
 
-Move to the `dbt_impala_demo` dbt project directory.
+Move to the `dbt_spark_livy_demo` dbt project directory.
 
 Run the seeds with
 
@@ -93,7 +73,7 @@ Run the seeds with
 ### dbt test
 Our Seeds are configured with a couple of [Tests](https://docs.getdbt.com/docs/building-a-dbt-project/tests)
 
-We also have a custom test created in `dbt_impala_demo/tests/generic/test_length.sql` which is used to test the character length of a column.
+We also have a custom test created in `dbt_spark_livy_demo/tests/generic/test_length.sql` which is used to test the character length of a column.
 
 Our reference data has columns that include ISO Alpha2 and Alpha3 country codes - we know that these columns should always be 2 or 3 columns respectively. To ensure that our reference data is high quality, we can use dbt to test these assumptions and report the results.
 
@@ -144,9 +124,9 @@ To demonstrate how we can handle new data arriving, let's generate some more dat
 
 As before, move to the `util/data_gen` dir and generate the next 2 days of data with
 
-`./start.sh 2`
+`python generate_data.py --days 2 --start-date 2022-01-03`
 
-This will generate fake data for 03/01/2022 and 04/01/2022 and write it into the raw tables in Impala.
+This will generate fake data for 03/01/2022 and 04/01/2022.Copy these to seeds folder and run dbt seed.
 
 Select the data in `raw_covid.raw_covid__cases` and you should see that you now have 4 days of data.
 

@@ -40,7 +40,7 @@ data_path = str(Path(__file__).resolve().parent)+'/data/'
 
 # Load the country_code.csv reference data so that we generate valid dummy data
 country_code_file_loc = base_path + \
-    '/dbt_spark_demo/seeds/reference/ref__country_codes.csv'
+    '/dbt_spark_livy_demo/seeds/reference/ref__country_codes.csv'
 country_codes = []
 with open(country_code_file_loc, mode='r') as infile:
     reader = csv.DictReader(infile)
