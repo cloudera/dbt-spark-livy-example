@@ -10,9 +10,10 @@ This directory contains some utilities for generating fake data.
 # Getting started
 It is recommended to use `venv` to create a Python virtual environment for the demo.
 ## Requirements
-Python >= 3.8
-dbt-core >= 1.1.0
-git 
+
+- Python >= 3.8
+- dbt-core >= 1.1.0
+- git 
 
 ## Install
 Start by cloning this repo
