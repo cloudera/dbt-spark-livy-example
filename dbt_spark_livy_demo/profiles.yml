@@ -1,12 +1,13 @@
-dbt_spark_demo:
+dbt_spark_livy_demo:
   outputs:
    dev_spark_livy:
      type: spark_livy
      method: livy
-     schema: "{{ env_var('DBT_SCHEMA') }}"
-     dbname: "{{ env_var('DBT_DBNAME') }}"
-     host: "{{ env_var('DBT_HOST') }}"
-     user: "{{ env_var('DBT_USER') }}"
-     password: "{{ env_var('DBT_PASSWORD') }}"
+     schema: "{{ env_var('DBT_SPARK_LIVY_SCHEMA') }}"
+     dbname: "{{ env_var('DBT_SPARK_LIVY_DBNAME') }}"
+     host: "{{ env_var('DBT_SPARK_LIVY_HOST') }}"
+     user: "{{ env_var('DBT_SPARK_LIVY_USER') }}"
+     password: "{{ env_var('DBT_SPARK_LIVY_PASSWORD') }}"
   target: dev_spark_livy
+
 
